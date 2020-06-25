@@ -13,6 +13,17 @@
 	text-rendering:optimizeLegibility;
 }
 
+.error {
+	color: red;
+}
+
+.success {
+	color: gold;
+	text-align: center;
+	font-weight: bold;
+	font-size: 14px;
+}
+
 body {
 	font-family:"Open Sans", Helvetica, Arial, sans-serif;
 	font-weight:300;

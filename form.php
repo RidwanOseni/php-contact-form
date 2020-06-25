@@ -1,7 +1,7 @@
 <?php 
 // define variables and set to empty values
 $name_error = $email_error = $phone_error =$url_error = "";
-$name = $email = $phone = $message = $url = "";
+$name = $email = $phone = $message = $url = $success = "";
                     
 function test_input($data)
 {
@@ -58,6 +58,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $message = "";
     } else {
         $message = test_input($_POST["message"]);
+    }
+
+    if ($name_error == "" and $email_error = "" and $phone_error == "" and $url_error == "") {
+        $message_body = '';
+        unset($_POST['submit']);
+        foreach ($_POST as $key => $value) {
+            $message_body .= "$key: $value\n";
+        }
+
+        $to = "ridwanoseni101@gmail.com";
+        $subject = "Contact Form Submit";
+        if (mail($to, $subject, $message)) {
+            $success = "Message sent, thank you for contacting us!";
+            $name = $email = $phone = $message = $url = "";
+    
+        }
     }
 
 }
