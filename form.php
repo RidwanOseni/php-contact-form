@@ -60,6 +60,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $message = test_input($_POST["message"]);
     }
 
+     // Send message
+
+        $to = "ridwanoseni101@gmail.com";
+        $body = "";
+
+        $body .= "From: ". $name."\r\n";
+        $body .= "Phone: ". $phone."\r\n";
+        $body .= "URL: ". $url."\r\n";
+        $body .= "Message: ". $message."\r\n";
+
+        mail($to, $email, $body);
 }
 
 ?>
