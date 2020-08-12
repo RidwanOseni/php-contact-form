@@ -26,6 +26,7 @@
     </fieldset>
     <fieldset>
       <input placeholder="Your Phone Number" type="text" tabindex="3" name="phone">
+      <sub> Format: +(234)-xxx-xxx-xxxx</sub>
       <span class="error"><?php echo  $phone_error ?></span>
     </fieldset>
     <fieldset>

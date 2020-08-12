@@ -14,12 +14,11 @@ function test_input($data)
 //form is submitted with POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     if (empty($_POST["name"])) {
-   // var_dump('Hello');
         $name_error = "Name is Required";
     } else {
         $name = test_input($_POST["name"]);
         //check  if name only contains letters and whitespace
-        if (!preg_match("/^[a-zA-Z ]*$/", $name)) {
+        if (!preg_match("/^[a-zA-Z. ]*$/", $name)) {
             $name_error = "Only letters and white space allowed";
         }
     }
@@ -39,13 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         $phone = test_input($_POST["phone"]);
         //check  if phone number only contains number
-        if (!preg_match("(^\D?(\d{3})\D?\D?(\d{3})\D?(\d{5})$)", $phone)) {
+        if (!preg_match("(^\+\D[0-9]{3}\D+[0-9]{3}\D+[0-9]{3}\D+[0-9]{4})", $phone)) {
             $phone_error = "Invalid phone number";
         }
     }
 
     if (empty($_POST["url"])) {
-        $url_error = "";
+        $url_error = "Url is required";
     } else {
         $url = test_input($_POST["url"]);
         //check  if URL address syntax is valid(this regular expression also allows dashes in the URL)
@@ -61,16 +60,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
      // Send message
+    if(!empty($name) && !empty($email) && !empty($phone) && !empty($url)) {
+        if((preg_match("/^[a-zA-Z. ]*$/", $name) == true) && (filter_var($email, FILTER_VALIDATE_EMAIL) == true) && (preg_match("(^\+\D[0-9]{3}\D+[0-9]{3}\D+[0-9]{3}\D+[0-9]{4})", $phone) == true) && (preg_match("([(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))", $url) == true)){
 
-        $to = "ridwanoseni101@gmail.com";
-        $body = "";
+            $to = "ridwanoseni101@gmail.com";
+            $body = "";
 
-        $body .= "From: ". $name."\r\n";
-        $body .= "Phone: ". $phone."\r\n";
-        $body .= "URL: ". $url."\r\n";
-        $body .= "Message: ". $message."\r\n";
+            $body .= "From: ". $name."\r\n";
+            $body .= "Phone: ". $phone."\r\n";
+            $body .= "URL: ". $url."\r\n";
+            $body .= "Message: ". $message."\r\n";
 
-        mail($to, $email, $body);
+            mail($to, $email, $body);
+        } else {
+            echo "Please fill in the form approprately";
+        }
+
+    }
 }
 
 ?>
